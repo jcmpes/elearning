@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models.signals import post_save
 
 import stripe
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 MEMBERSHIP_CHOICES = {
     ('Profesional', 'pro'),
