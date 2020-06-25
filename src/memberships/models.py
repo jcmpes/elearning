@@ -10,7 +10,7 @@ MEMBERSHIP_CHOICES = {
     ('Amateur', 'ama'),
     ('Gratis', 'gra')
 }
-
+ 
 # Create your models here.
 class Membership(models.Model):
     slug = models.SlugField()
