@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -6,6 +7,7 @@ from django.urls import reverse
 
 from .models import Membership, UserMembership, Subscription
 
+import stripe
 
 def get_user_membership(request):
     user_membership_qs = UserMembership.objects.filter(user=request.user)
@@ -76,4 +78,13 @@ def PaymentView(request):
     
     user_membership = get_user_membership(request)
 
+    selected_membership = get_selected_membership(request)
 
+    publishKey = settings.STRIPE_PUBLISHABLE_KEY
+
+    context = {
+        'publishKey': publishKey,
+        'selected_membership': selected_membership
+    }
+
+    return render(request, "memberships/membership_payment.html", context)
