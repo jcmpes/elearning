@@ -82,6 +82,22 @@ def PaymentView(request):
 
     publishKey = settings.STRIPE_PUBLISHABLE_KEY
 
+    if request.method == "POST":
+        try:
+            token = request.POST['stripeToken']
+            stripe.Subscription.create(
+            customer=user_membership.stripe_customer_id,
+            items=[
+                {
+                    "plan": selected_membership.stripe_plan_id,
+                },
+            ],
+            source=token
+            )
+            
+        except stripe.CardError as e:
+            messages.info(request, "Tarjeta no válida")
+
     context = {
         'publishKey': publishKey,
         'selected_membership': selected_membership
