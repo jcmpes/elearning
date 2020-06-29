@@ -2,7 +2,9 @@
 <html>
 <head>
     <!-- Latest compiled and minified CSS -->
+    {% load static %}
     {% block head %}{% endblock %}
+    <link rel="shortcut icon" href="{% static "favicon.ico" %}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <title>{% block title %}{% endblock %}</title>
 </head>
@@ -12,8 +14,7 @@
 
     <div class="container">
         <ol class="breadcrumb">
-            <li><a href="/courses">Home</a></li>
-            <li><a href="/memberships/profile/">Perfil</a></li>
+            <li><a href="/courses/">Home</a></li>
 
             {% block post_detail_link %}
             {% endblock %}
@@ -23,6 +24,7 @@
             <li class="pull-right"><a href="/login">Acceder</a></li>
             {% else %}
             <li class="pull-right"><a href="/memberships">Membresías</a></li>
+            <li class="pull-right"><a href="/memberships/profile/">Perfil</a></li>
             <li class="pull-right"><a href="/logout">Desconectar</a></li>
             {% endif %}
         </ol>
@@ -36,6 +38,15 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
+    <!-- Footer. -->
+    <footer style="position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;" class="page-footer font-small blue pt-4 text-center">
+        <div class="footer-copyright text-center py-3">Developed by JC for CS50 Web Development 2020</a>
+        </div>
+    </footer>
 </body>
 </html>
 

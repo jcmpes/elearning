@@ -157,6 +157,6 @@ SITE_ID = 1
 # Crispy forms
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = '/courses'
+LOGIN_REDIRECT_URL = '/courses/'
 
-LOGOUT_REDIRECT_URL = '/login'
+LOGOUT_REDIRECT_URL = '/login/'

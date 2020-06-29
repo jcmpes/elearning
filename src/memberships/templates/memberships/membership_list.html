@@ -2,12 +2,12 @@
 
 {% block content %}
     <div class="container">
-        <h1>Select a membership</h1>
+        <h1>Selecciona una membresía</h1>
         <div class="row">
             {% for object in object_list %}
                 <div class="col-sm-4 col-md-4">
                     <h2>{{ object.membership_type }}</h2>
-                    <p>Price: ${{ object.price }}<small>/mes</small></p>
+                    <p>Pecio: {{ object.price }}€<small>/mes</small></p>
                     <h4>Cursos Incluídos:</h4>
                     <ul>
                         {% for course in object.course_set.all %}
@@ -17,7 +17,7 @@
                     <form method="POST" action="{% url 'memberships:select' %}">
                         {% csrf_token %}
                         {% if object.membership_type != current_membership %}
-                            <button class="btn btn-warning">Select</button>
+                            <button class="btn btn-warning">Seleccionar</button>
                         {% else %}
                             <small>Esta es tu membresía actual</small>
                         {% endif %}

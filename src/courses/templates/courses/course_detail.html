@@ -13,7 +13,13 @@
                 <p>{{ object.description }}</p>
                 <ol>
                     {% for lesson in object.lessons %}
-                    <li><a href="{{ lesson.get_absolute_url }}">{{ lesson.title }}</a></li>
+                    <li>
+                        {% if request.user.is_authenticated %}
+                        <a href="{{ lesson.get_absolute_url }}">{{ lesson.title }}</a>
+                        {% else %}
+                        <p>{{ lesson.title }}</p>
+                        {% endif %}
+                    </li>
                     {% endfor %}
                 </ol>
                 
