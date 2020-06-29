@@ -15,7 +15,7 @@ def profile_view(request):
     user_subscription = get_user_subscription(request)
     context = {
         'user_membership': user_membership,
-        'user_subsctiption': user_subscription
+        'user_subscription': user_subscription
     }
     return render(request, "memberships/profile.html", context)
 
