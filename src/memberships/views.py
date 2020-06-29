@@ -1,13 +1,24 @@
 from django.conf import settings
 from django.contrib import messages
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from django.urls import reverse
 
 from .models import Membership, UserMembership, Subscription
 
 import stripe
+
+
+def profile_view(request):
+    user_membership = get_user_membership(request)
+    user_subscription = get_user_subscription(request)
+    context = {
+        'user_membership': user_membership,
+        'user_subsctiption': user_subscription
+    }
+    return render(request, "memberships/profile.html", context)
+
 
 def get_user_membership(request):
     user_membership_qs = UserMembership.objects.filter(user=request.user)
@@ -85,16 +96,36 @@ def PaymentView(request):
     if request.method == "POST":
         try:
             token = request.POST['stripeToken']
-            stripe.Subscription.create(
-            customer=user_membership.stripe_customer_id,
-            items=[
-                {
-                    "plan": selected_membership.stripe_plan_id,
-                },
-            ],
-            source=token
+
+            # UPDATE FOR STRIPE API CHANGE.
+
+            '''
+            First we need to add the source for the customer
+            '''
+
+            customer = stripe.Customer.retrieve(user_membership.stripe_customer_id)
+            customer.source = token
+            customer.save()
+
+            '''
+            Now we can create the subscription using only the customer as we don't need to pass
+            their credit card source anymore
+            '''
+
+            subscription = stripe.Subscription.create(
+                customer=user_membership.stripe_customer_id,
+                items=[
+                    {
+                        "plan": selected_membership.stripe_plan_id,
+                    },
+                ]
             )
-            
+
+            return redirect(reverse('memberships:update-transactions',
+                                    kwargs={
+                                        'subscription_id': subscription.id
+                                    }))
+
         except stripe.CardError as e:
             messages.info(request, "Tarjeta no válida")
 
@@ -104,3 +135,25 @@ def PaymentView(request):
     }
 
     return render(request, "memberships/membership_payment.html", context)
+
+
+def updateTransactionRecords(request, subscription_id):
+
+    user_membership = get_user_membership(request)
+    selected_membership = get_selected_membership(request)
+
+    user_membership.membership = selected_membership
+    user_membership.save()
+
+    sub, created = Subscription.objects.get_or_create(user_membership=user_membership)
+    sub.stripe_subscription_id = subscription_id
+    sub.active = True
+    sub.save()
+
+    try:
+        del request.session['selected_membership_type']
+    except:
+        pass
+
+    messages.info(request, "Membresia {} creada con exito".format(selected_membership))
+    return redirect('/memberships')

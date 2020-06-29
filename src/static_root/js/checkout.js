@@ -1,6 +1,6 @@
 // Create a Stripe client.
 
-var stripe = Stripe(os.environ['STRIPE_PUBLISHABLE_KEY']);
+var stripe = Stripe('pk_test_51GxoD0JsC37A7ZUaRk7hDP1zfFXgSJ3jBnoNX4cO6bLQlUzIJkrzfvO11zFsr6lnnLwLbaSzRgLjLVfGSg1alrvm00WGmabRqf');
 
   // Create an instance of Elements.
   var elements = stripe.elements();
@@ -55,7 +55,6 @@ var stripe = Stripe(os.environ['STRIPE_PUBLISHABLE_KEY']);
         stripeTokenHandler(result.token);
       }
     });
-
   });
 
   var successElement = document.getElementById('stripe-token-handler');
