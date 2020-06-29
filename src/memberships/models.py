@@ -58,5 +58,7 @@ class Subscription(models.Model):
         subscription = stripe.Subscription.retrieve(self.stripe_subscription_id)
         return datetime.fromtimestamp(subscription.created)
 
-    # @property
-    # def get_next_billing_date(self):
+    @property
+    def get_next_billing_date(self):
+        subscription = stripe.Subscription.retrieve(self.stripe_subscription_id)
+        return datetime.fromtimestamp(subscription.current_period_end)
