@@ -1,0 +1,25 @@
+{% extends "courses/base.html" %}
+
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}">
+{% endblock %}
+
+{% block title %}Register{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+	<div class="container">
+        <div class="row">
+            <div id="register" class="col-sm-4 col-md-4 flexbox">
+				<form method="POST" class="form-group" action="">
+					{% csrf_token %}
+					{{ form|crispy }}
+					<button type="submit" class="btn btn-success">Register</button>
+				</form>
+			</div>
+		</div>
+	</div>		
+{% endblock %}

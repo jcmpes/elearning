@@ -1,0 +1,26 @@
+{% extends "courses/base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+	{% if message %}
+		<div>
+			{{ message }}
+		</div>
+	{% endif %}
+	<div class="container">
+        <div class="row">
+            <div id="register" class="col-sm-4 col-md-4 flexbox">
+				<form action="{% url 'login' %}" method="POST" class="form-group">
+				{% csrf_token %}
+				{{ form|crispy }}
+
+				<p>Don't have an account? Create one <a href="/register">here</a>
+
+				<button type="submit" class="btn btn-success">Login</button>
+			</div>
+		</div>
+	</div>	
+{% endblock %}

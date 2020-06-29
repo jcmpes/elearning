@@ -5,9 +5,11 @@
         <div class="row">
             <div class="col-sm-4 col-md-4">
                 <h1>Cursos</h1>
+                <ul>
                 {% for object in object_list %}
-                    <a href="{{ object.get_absolute_url }}">{{ object }}</a>
+                    <li><a href="{{ object.get_absolute_url }}">{{ object }}</a></li>
                 {% endfor %}
+                </ul>
             </div>
         </div>
     </div>

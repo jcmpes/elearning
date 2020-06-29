@@ -39,11 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'memberships',
     'courses',
-
-    'django.contrib.sites',
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
+    'crispy_forms',
+    'register.apps.RegisterConfig',
+    'django.contrib.sites'
 ]
 
 MIDDLEWARE = [
@@ -155,3 +153,10 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SITE_ID = 1
+
+# Crispy forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = '/courses'
+
+LOGOUT_REDIRECT_URL = '/login'
