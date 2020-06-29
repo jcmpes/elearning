@@ -10,7 +10,7 @@
                         <small>desde {{ user_subscription.get_created_date }}</small></h4>
                     {% if user_subscription.active != False %}
                         <p>Próximo pago: {{ user_subscription.get_next_billing_date }}</p>
-                        <a href="#">Cancelar suscripción</a>
+                        <a href="{% url 'memberships:cancel' %}">Cancelar suscripción</a>
                     {% else %}
                         <p>No tienes una membresía activa. Puedes revisar los planes <a href="{% url 'memberships:select' %}">aquí</a></p>
                     {% endif %}

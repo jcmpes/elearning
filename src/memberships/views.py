@@ -157,3 +157,24 @@ def updateTransactionRecords(request, subscription_id):
 
     messages.info(request, "Membresia {} creada con exito".format(selected_membership))
     return redirect('/memberships')
+
+def cancelSubscription(request):
+    user_sub = get_user_subscription(request)
+
+    if user_sub.active == False:
+        messages.info(request, "Actualmente no hay ninguna membresía activa")
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+    sub = stripe.Subscription.retrieve(user_sub.stripe_subscription_id)
+    sub.delete()
+
+    user_sub.active = False
+    user_sub.save()
+
+    free_membership = Membership.objects.filter(membership_type='Gratis').first()
+    user_membership = get_user_membership(request)
+    user_membership.membership = free_membership
+    user_membership.save()
+
+    messages.info(request, "Membresía cancelada con éxito.")
+    return redirect('/memberships')
