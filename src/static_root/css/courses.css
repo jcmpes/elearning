@@ -1,11 +1,10 @@
-/* .courses-cards {
-    display: flex;
-    min-height: 100vh;
+.card-deck {
+    flex-wrap: wrap;
 }
 
 .card {
-    min-width: 200px;
-} */
+    width: 18rem;
+}
 
 .card-img-top {
     width: 100%;
