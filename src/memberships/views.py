@@ -156,7 +156,7 @@ def updateTransactionRecords(request, subscription_id):
         pass
 
     messages.info(request, "Membresia {} creada con exito".format(selected_membership))
-    return redirect('/memberships')
+    return redirect('/memberships/')
 
 def cancelSubscription(request):
     user_sub = get_user_subscription(request)
@@ -177,4 +177,4 @@ def cancelSubscription(request):
     user_membership.save()
 
     messages.info(request, "Membresía cancelada con éxito.")
-    return redirect('/memberships')
+    return redirect('/memberships/')

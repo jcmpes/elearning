@@ -8,7 +8,7 @@ from memberships.models import UserMembership
 
 
 class CourseListView(ListView):
-    model = Course
+    model = Course 
 
 
 class CourseDetailView(DetailView):

@@ -1,19 +1,16 @@
 {% extends "courses/base.html" %}
 
-{% load static %}
-
 {% block head %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/register.css' %}">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<title>Registrar</title>
 {% endblock %}
-
-{% block title %}Register{% endblock %}
 
 {% load crispy_forms_tags %}
 
 {% block content %}
 	<div class="container">
-        <div class="row">
-            <div id="register" class="col-sm-4 col-md-4 flexbox">
+        <div class="row d-flex justify-content-center">
+            <div id="register" class="col-sm-4 col-md-4">
 				<form method="POST" class="form-group" action="">
 					{% csrf_token %}
 					{{ form|crispy }}

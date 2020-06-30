@@ -1,9 +1,14 @@
 {% extends 'courses/base.html'%}
 
+{% block head %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<title>Leccion</title>
+{% endblock %}
+
 {% block post_detail_link %}
 {% if object is not None %}
-    <li><a href="{{ object.course.get_absolute_url }}">{{ object.course.title }}</a></li>
-    <li>{{ object.title }}</li>
+    <li class="breadcrumb-item"><a href="{{ object.course.get_absolute_url }}">{{ object.course.title }}</a></li>
+    <li class="breadcrumb-item">{{ object.title }}</li>
 {% endif %}
 {% endblock %}
 
