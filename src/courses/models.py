@@ -42,8 +42,10 @@ class Lesson(models.Model):
         return True if self.position == self.course.lessons.count() else False
     
     def next(self):
-        if Lesson.objects.filter(position = self.position + 1).exists():
-            return Lesson.objects.filter(position = self.position + 1).first()
+        next_position = self.position + 1
+        next_qs = Lesson.objects.filter(position = next_position)
+        if next_qs.exists():
+            return next_qs.first()
 
 class lessonsCompleted(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
