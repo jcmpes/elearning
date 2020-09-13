@@ -2,7 +2,7 @@
 
 {% block head %}
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-<title>Leccion</title>
+<title>Lección</title>
 {% endblock %}
 
 {% block post_detail_link %}
@@ -28,6 +28,13 @@
                            height="200">
                         Tu navegador no soporta video embebido.
                     </video>
+                    {% if not object.is_last_lesson %}
+                    <div>
+                        <!-- <form action=""> -->
+                            <a href="{% url 'courses:lesson-detail' course_slug=object.course.slug lesson_slug=object.next.slug %}">Ir a la siguiente lección</a>
+                        <!-- </form>     -->
+                    </div>
+                    {% endif %}
                 {% else %}
                     <h3>Actualizar susctipción</h3>
                     <p>Para ver este video necesitarás actualizar tu suscripción</p>

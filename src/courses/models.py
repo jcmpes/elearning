@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 from django.urls import reverse
@@ -36,4 +37,15 @@ class Lesson(models.Model):
 
     def get_absolute_url(self):
         return reverse("courses:lesson-detail", kwargs={"course_slug": self.course.slug, "lesson_slug": self.slug})
+
+    def is_last_lesson(self):
+        return True if self.position == self.course.lessons.count() else False
     
+    def next(self):
+        if Lesson.objects.filter(position = self.position + 1).exists():
+            return Lesson.objects.filter(position = self.position + 1).first()
+
+class lessonsCompleted(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)

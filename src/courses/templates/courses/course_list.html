@@ -22,7 +22,9 @@
                             <img class="card-img-top" src="/static/{{ object.thumbnail }}" alt="Card image cap">
                             <div class="card-body">
                                 <h5 class="card-title"><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h5>
-                                <p class="card-text">{{ object.description }}</p>
+                                <div class="progress-bar">
+                                    <progress id="progress-{{ object.title }}" value="{{object.progress}}" max="100"></progress>
+                                </div>
                                 <div class="card-footer">
                                     <a href="{{ object.get_absolute_url }}" class="btn btn-primary">Ver curso</a>
                                 </div>
