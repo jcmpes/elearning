@@ -42,8 +42,8 @@ class Lesson(models.Model):
         return True if self.position == self.course.lessons.count() else False
     
     def next(self):
-        next_position = self.position + 1
-        next_qs = Lesson.objects.filter(position = next_position)
+        next_lesson = self.id + 1
+        next_qs = Lesson.objects.filter(id = next_lesson)
         if next_qs.exists():
             return next_qs.first()
 

@@ -30,9 +30,12 @@
                     </video>
                     {% if not object.is_last_lesson %}
                     <div>
-                        <!-- <form action=""> -->
-                            <a href="{% url 'courses:lesson-detail' course_slug=object.course.slug lesson_slug=object.next.slug %}">Ir a la siguiente lección</a>
-                        <!-- </form>     -->
+                        <form action="{% url 'courses:lesson-detail' course_slug=object.course.slug lesson_slug=object.next.slug %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="course" value="{{ object.course.id }}">
+                            <input type="hidden" name="lesson" value="{{ object.id }}">
+                            <button type="submit">Ir a la siguiente lección</button>
+                        </form>    
                     </div>
                     {% endif %}
                 {% else %}
