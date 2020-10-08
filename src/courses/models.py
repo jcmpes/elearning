@@ -3,7 +3,8 @@ from django.db import models
 
 from django.urls import reverse
 
-from memberships.models import Membership
+from memberships.models import Membership, UserMembership
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Course(models.Model):
@@ -22,6 +23,12 @@ class Course(models.Model):
     @property    
     def lessons(self):
         return self.lesson_set.all().order_by('position')
+
+    # @property
+    # def progress(self):
+    #     # user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    #     completed = lessonsCompleted.objects.filter(course_id=self.id, user_id=User.id)
+    #     return int(completed.count() / self.lessons.count() * 100)
 
 
 class Lesson(models.Model):

@@ -1,14 +1,30 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 
-from django.views.generic import ListView, DetailView, View
+from django.views.generic import DetailView, View
 
 from .models import Course, Lesson, lessonsCompleted
 from memberships.models import UserMembership
 
 
-class CourseListView(ListView):
-    model = Course 
+# class CourseListView(ListView):
+#     model = Course
+def courseListView(request):
+    print('courseListView')
+    object_list = {}
+    courses = Course.objects.all()
+    for course in courses:
+        object_list[course] = {
+            'progress': int(lessonsCompleted.objects.filter(user=request.user.id, course=course.id).count() / course.lessons.count() * 100),  
+        }
+    print(courses)
+    print(request.user)
+    print(object_list)
+    context = {
+        'object_list': object_list,
+    }
+    
+    return render(request, "courses/course_list.html", context)
 
 
 class CourseDetailView(DetailView):
@@ -16,7 +32,6 @@ class CourseDetailView(DetailView):
 
 
 class LessonDetailView(View):
-
 
     def post(self, request, course_slug, lesson_slug, *args, **kwargs):
         course_id = request.POST['course']

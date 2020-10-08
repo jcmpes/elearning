@@ -55,7 +55,6 @@ var stripe = Stripe('pk_test_51GxoD0JsC37A7ZUaRk7hDP1zfFXgSJ3jBnoNX4cO6bLQlUzIJk
         stripeTokenHandler(result.token);
       }
     });
-
   });
 
   var successElement = document.getElementById('stripe-token-handler');
